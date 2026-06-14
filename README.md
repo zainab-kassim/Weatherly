@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RunCast — Weather-Based Running Decision Tool
+
+A weather-based decision support tool that helps runners answer one question: **Is now a good time to run?**
+
+Built with Next.js, TypeScript, and Tailwind CSS as part of the Prepr Frontend Developer Challenge.
+
+## Live Demo
+
+[View Deployment](https://your-vercel-url.vercel.app)
+
+## Features
+
+- 📍 Automatic location detection via IP geolocation
+- 🌤️ Real-time weather data from Open-Meteo API
+- 🏃 Running condition scoring system (0–100) with human-readable reasons
+- 🕐 Hourly forecast strip from current hour to midnight
+- 🎨 Dynamic background that changes based on current weather condition
+- 📱 Fully responsive — works on mobile and desktop
+
+## Tech Stack
+
+- **Framework:** Next.js 15 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **APIs:** ip-api.com (geolocation), Open-Meteo (weather forecast)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm
+
+### Installation
 
 ```bash
+git clone https://github.com/your-username/weather-app.git
+cd weather-app
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
+weather-app/
+```
+weather-app/
+├── app/
+│   ├── layout.tsx
+│   ├── page.tsx
+│   ├── loading.tsx
+│   └── error.tsx
+├── components/
+│   ├── ui/
+│   │   ├── HourlyCard.tsx
+│   │   ├── HourlyStrip.tsx
+│   │   └── RecommendationCard.tsx
+│   └── BackgroundScene.tsx
+├── lib/
+│   ├── getLocation.ts
+│   ├── getWeather.ts
+│   ├── scorer.ts
+│   └── weatherUtils.ts
+├── types/
+│   ├── weather.ts
+│   └── runscore.ts
+└── public/
+    └── backgrounds/
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## Assumptions
 
-To learn more about Next.js, take a look at the following resources:
+- User is on a device with a public IP address for geolocation to work
+- Weather data is fetched fresh on each page load — no caching layer implemented
+- Running conditions are scored based on generally accepted comfortable running ranges and may not suit every runner's preference
+- App is optimised for today's forecast only, not multi-day planning
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## AI Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Claude (Anthropic) was used as a development assistant throughout this project for:
+- Planning the folder structure and data flow architecture
+- Suggesting the rules-based scoring approach in `scorer.ts`
+- Debugging TypeScript type errors
+- UI layout and Tailwind class suggestions
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+All code was reviewed, understood, and integrated manually.
