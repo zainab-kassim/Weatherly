@@ -1,3 +1,5 @@
+import { headers } from "next/headers";
+
 export interface LocationData {
   lat: number;
   lon: number;
@@ -7,7 +9,9 @@ export interface LocationData {
 }
 
 export async function getLocation(): Promise<LocationData> {
-  const res = await fetch("http://ip-api.com/json/");
+     const headersList = await headers();
+  const ip = headersList.get("x-forwarded-for")?.split(",")[0] || "";
+  const res = await fetch(`http://ip-api.com/json/${ip}`);
 
   if (!res.ok) { 
     throw new Error("Failed to fetch location");
