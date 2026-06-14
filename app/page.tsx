@@ -6,12 +6,18 @@ import BackgroundScene from '@/components/BackgroundScene';
 import RecommendationCard from '@/components/ui/RecommendationCard';
 import HourlyStrip from '@/components/ui/HourlyStrip';
 import { headers } from 'next/headers';
+import LocationSearch from '@/components/ui/LocationSearch';
+import { geocodeCity } from '@/lib/geoCode';
 
+interface Props {
+  searchParams: Promise<{ city?: string }>;
+}
 
-export default async function page() {
-     const headersList = await headers();
+export default async function Page({ searchParams }: Props) {
+  const { city } = await searchParams;
+  const headersList = await headers();
   const ip = headersList.get("x-forwarded-for")?.split(",")[0] || "";
-  const location = await getLocation(ip)
+  const location = city ? await geocodeCity(city) : await getLocation(ip);
   const weather = await getWeather(location.lat, location.lon)
   const scores = scoreAllHours(weather.hourly)
   const currentScore = scores[0];
@@ -22,6 +28,7 @@ export default async function page() {
     <>
       <BackgroundScene condition={currentScore.condition}>
         <div className="flex flex-col items-center pt-20 px-4 text-white">
+<LocationSearch />
           <p className="text-xl font-light tracking-widest uppercase opacity-80">
             {location.city}
           </p>
