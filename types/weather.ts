@@ -1,0 +1,1 @@
+export type WeatherCondition = "sunny" | "cloudy" | "rainy" | "chilly" | "snowy";

@@ -1,0 +1,1 @@
+export type RunScore = "Ideal" | "Good" | "Marginal" | "Not Recommended";
