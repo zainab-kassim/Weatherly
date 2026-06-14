@@ -5,10 +5,13 @@ import { scoreAllHours } from "@/lib/scorer";
 import BackgroundScene from '@/components/BackgroundScene';
 import RecommendationCard from '@/components/ui/RecommendationCard';
 import HourlyStrip from '@/components/ui/HourlyStrip';
+import { headers } from 'next/headers';
 
 
 export default async function page() {
-  const location = await getLocation()
+     const headersList = await headers();
+  const ip = headersList.get("x-forwarded-for")?.split(",")[0] || "";
+  const location = await getLocation(ip)
   const weather = await getWeather(location.lat, location.lon)
   const scores = scoreAllHours(weather.hourly)
   const currentScore = scores[0];
