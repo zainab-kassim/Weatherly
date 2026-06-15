@@ -8,8 +8,8 @@ interface Props {
 
 export default function HourlyStrip({ scores }: Props) {
     return (
-        <div className="w-full max-w-full  mx-auto mt-6 px-4">
-            <div className="flex  w-full gap-3 xl:justify-center flex-nowrap overflow-x-auto scrollbar-hide">
+        <div className="w-full mt-6 px-4 overflow-x-auto scrollbar-hide">
+      <div className="flex gap-3 flex-nowrap w-max mx-auto">
                 {scores.map((score, i) => (
                     <div className="shrink-0" key={score.time}>
                         <HourlyCard
