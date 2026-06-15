@@ -20,7 +20,7 @@ export default async function Page({ searchParams }: Props) {
   const ip = rawIp === "::1" || rawIp === "127.0.0.1" ? "" : rawIp;
   const location = city ? await geocodeCity(city) : await getLocation(ip);
   const weather = await getWeather(location.lat, location.lon)
-  const scores = scoreAllHours(weather.hourly)
+  const scores = scoreAllHours(weather.hourly,weather.timezone)
   const currentScore = scores[0];
   const allTemps = weather.hourly.temperature_2m;
   const high = Math.round(Math.max(...allTemps));
