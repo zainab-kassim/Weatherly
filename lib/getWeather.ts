@@ -11,6 +11,7 @@ export interface HourlyWeather {
 
 export interface WeatherData {
   hourly: HourlyWeather;
+ timezone: string;
 }
 
 export async function getWeather(lat: number, lon: number): Promise<WeatherData> {
@@ -24,7 +25,8 @@ export async function getWeather(lat: number, lon: number): Promise<WeatherData>
 
   const data = await res.json();
 
-  return {
-    hourly: data.hourly,
-  };
+ return {
+  hourly: data.hourly,
+timezone: data.timezone,
+};
 }

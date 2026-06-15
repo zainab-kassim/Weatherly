@@ -17,8 +17,8 @@ export function getConditionFromCode(weathercode: number, temperature: number): 
   return "sunny";
 }
 
-export function getCurrentHourIndex(): number {
-  return new Date().getHours();
+export function getCurrentHourIndex(timezone: string): number {
+  return new Date(new Date().toLocaleString("en-US", { timeZone: timezone })).getHours();
 }
 
 export function filterRemainingHours<T>(data: T[], startIndex: number): T[] {

@@ -77,8 +77,8 @@ export function scoreAllHours(hourly: {
     windspeed_10m: number[];
     relativehumidity_2m: number[];
     uv_index: number[];
-}): HourScore[] {
-    const currentHour = getCurrentHourIndex();
+},timezone: string): HourScore[] {
+    const currentHour = getCurrentHourIndex(timezone);
 
     return filterRemainingHours(hourly.time, currentHour)
         .map((time, i) => {
