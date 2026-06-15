@@ -26,7 +26,7 @@ export async function getLocation(ip: string = ""): Promise<LocationData> {
     const data = await res.json();
 
     if (data.status !== "success") {
-      throw new Error("Location lookup unsuccessful");
+      throw new Error("Location Lookup unsuccessful");
     }
 
     return {
