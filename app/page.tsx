@@ -16,7 +16,8 @@ interface Props {
 export default async function Page({ searchParams }: Props) {
   const { city } = await searchParams;
   const headersList = await headers();
-  const ip = headersList.get("x-forwarded-for")?.split(",")[0] || "";
+  const rawIp = headersList.get("x-forwarded-for")?.split(",")[0] || "";
+  const ip = rawIp === "::1" || rawIp === "127.0.0.1" ? "" : rawIp;
   const location = city ? await geocodeCity(city) : await getLocation(ip);
   const weather = await getWeather(location.lat, location.lon)
   const scores = scoreAllHours(weather.hourly)
@@ -24,12 +25,14 @@ export default async function Page({ searchParams }: Props) {
   const allTemps = weather.hourly.temperature_2m;
   const high = Math.round(Math.max(...allTemps));
   const low = Math.round(Math.min(...allTemps));
+  
+
   return (
     <>
       <BackgroundScene condition={currentScore.condition}>
-        <div className="flex flex-col items-center pt-20 px-4 text-white">
-<LocationSearch />
-          <p className="text-xl font-light tracking-widest uppercase opacity-80">
+        <div className="flex flex-col items-center pt-14 px-4 text-white">
+          <LocationSearch cityError={location.error}  />
+          <p className="text-xl font-light tracking-widest uppercase opacity-80 pt-6">
             {location.city}
           </p>
           <h1 className="text-9xl font-thin mt-2">
@@ -49,9 +52,9 @@ export default async function Page({ searchParams }: Props) {
             score={currentScore.score}
           />
         </div>
-     <div  className="pb-10" >
-  <HourlyStrip scores={scores} />
-</div>
+        <div className="pb-10" >
+          <HourlyStrip scores={scores} />
+        </div>
       </BackgroundScene>
     </>
   )

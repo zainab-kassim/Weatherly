@@ -47,14 +47,15 @@ weather-app/
 ```
 weather-app/
 ├── app/
+│   ├── globals.css
 │   ├── layout.tsx
-│   ├── page.tsx
-│   ├── loading.tsx
-│   └── error.tsx
+│   ├── Loading.tsx
+│   └── page.tsx
 ├── components/
 │   ├── ui/
 │   │   ├── HourlyCard.tsx
 │   │   ├── HourlyStrip.tsx
+│   │   ├── LocationSearch.tsx
 │   │   └── RecommendationCard.tsx
 │   └── BackgroundScene.tsx
 ├── lib/
