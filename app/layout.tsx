@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "weatherly",
+  title: "Runcast",
   description: "Weather conditions at a glance, perfect for runners and outdoor enthusiasts.",
 };
 

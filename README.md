@@ -6,7 +6,7 @@ Built with Next.js, TypeScript, and Tailwind CSS as part of the Prepr Frontend D
 
 ## Live Demo
 
-[View Deployment](https://your-vercel-url.vercel.app)
+[View Deployment](https://weatherly-umber-omega.vercel.app/)
 
 ## Features
 
@@ -34,7 +34,7 @@ Built with Next.js, TypeScript, and Tailwind CSS as part of the Prepr Frontend D
 ### Installation
 
 ```bash
-git clone https://github.com/your-username/weather-app.git
+git clone https://github.com/zainab-kassim/Runcast.git
 cd weather-app
 npm install
 npm run dev
