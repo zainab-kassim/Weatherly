@@ -8,6 +8,7 @@ import HourlyStrip from '@/components/ui/HourlyStrip';
 import { headers } from 'next/headers';
 import LocationSearch from '@/components/ui/LocationSearch';
 import { geocodeCity } from '@/lib/geoCode';
+import { getCurrentHourIndex } from '@/lib/weatherUtils';
 
 interface Props {
   searchParams: Promise<{ city?: string }>;
@@ -25,11 +26,14 @@ export default async function Page({ searchParams }: Props) {
   const allTemps = weather.hourly.temperature_2m;
   const high = Math.round(Math.max(...allTemps));
   const low = Math.round(Math.min(...allTemps));
+const currentHour = getCurrentHourIndex(weather.timezone);
+const isNight = currentHour >= 20 || currentHour < 6;
+const conditionLabel = isNight && currentScore.condition === "sunny" ? "Clear Night" : currentScore.condition;
   
 
   return (
     <>
-      <BackgroundScene condition={currentScore.condition}>
+      <BackgroundScene isNight={isNight} condition={currentScore.condition}>
         <div className="flex flex-col items-center pt-14 px-4 text-white">
           <LocationSearch cityError={location.error}  />
           <p className="text-xl font-light tracking-widest uppercase opacity-80 pt-6">
@@ -39,7 +43,7 @@ export default async function Page({ searchParams }: Props) {
             {Math.round(currentScore.temperature)}°
           </h1>
           <p className="text-2xl font-light capitalize mt-2 opacity-90">
-            {currentScore.condition}
+            {conditionLabel}
           </p>
           <p className="text-lg font-light opacity-80 mt-1">
             H:{high}° L:{low}°
